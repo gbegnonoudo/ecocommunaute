@@ -1,0 +1,25 @@
+{
+  "version": "0.0.1",
+  "_comment": "Configurations dev pour EcoCommunauté. Les mocks REST/GraphQL nécessitent Node.js (>=18) dans le PATH. HFSQL Server (PC SOFT) doit être installé séparément pour la config HFSQL.",
+  "configurations": [
+    {
+      "name": "Mock REST API EcoCommunauté",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["webapp/dev/mock_rest.js"],
+      "port": 3000
+    },
+    {
+      "name": "Mock GraphQL EcoCommunauté",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["webapp/dev/mock_graphql.js"],
+      "port": 4000
+    },
+    {
+      "name": "HFSQL Client/Serveur",
+      "_note": "Requiert PC SOFT HFSQL Server installé. Adapter le chemin runtimeExecutable selon votre installation (Windows ou Linux).",
+      "runtimeExecutable": "C:\\Program Files\\PC SOFT\\HFSQL Client-Serveur\\manainsrv.exe",
+      "runtimeArgs": ["-noservice"],
+      "port": 4900
+    }
+  ]
+}
