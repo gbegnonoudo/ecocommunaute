@@ -4,9 +4,12 @@
 // Port par défaut : 3000 (override avec MOCK_REST_PORT)
 
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const { URL } = require('url');
 
 const PORT = process.env.MOCK_REST_PORT || 3000;
+const PROTOTYPE_DIR = path.join(__dirname, 'prototype');
 
 // Données de démo
 const periodes = [
@@ -49,6 +52,13 @@ const server = http.createServer((req, res) => {
   console.log(`[${new Date().toISOString()}] ${method} ${url.pathname}`);
 
   if (method === 'OPTIONS') return send(res, 204, null);
+
+  // === Static : prototype HTML ===
+  if (method === 'GET' && (url.pathname === '/' || url.pathname === '/index.html')) {
+    const html = fs.readFileSync(path.join(PROTOTYPE_DIR, 'index.html'), 'utf-8');
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(html);
+  }
 
   // POST /auth/login
   if (method === 'POST' && url.pathname === '/auth/login') {

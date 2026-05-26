@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoCommunauté Web — Prototype</title>
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --success: #16a34a;
+  --warning: #ea580c;
+  --danger: #dc2626;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* === Header === */
+.header {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+}
+.logo { font-size: 18px; font-weight: 700; color: var(--primary); }
+.logo span { color: var(--success); }
+.nav { display: flex; gap: 8px; }
+.nav a {
+  padding: 8px 14px;
+  text-decoration: none;
+  color: var(--text-muted);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav a:hover { background: var(--bg); color: var(--text); }
+.nav a.active { background: var(--primary); color: white; }
+.user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--primary); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600;
+}
+
+/* === Layout === */
+.main { max-width: 1280px; margin: 0 auto; padding: 24px; }
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.subtitle { color: var(--text-muted); font-size: 14px; margin-top: -16px; margin-bottom: 24px; }
+
+/* === Cards === */
+.grid { display: grid; gap: 16px; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 768px) {
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.card-title { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.card-value { font-size: 28px; font-weight: 700; }
+.card-value.success { color: var(--success); }
+.card-value.danger { color: var(--danger); }
+.card-sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+.badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 999px; font-size: 12px; font-weight: 600;
+}
+.badge-open { background: #dbeafe; color: var(--primary-dark); }
+.badge-soumis { background: #fef3c7; color: #b45309; }
+.badge-valide { background: #dcfce7; color: var(--success); }
+
+/* === Buttons === */
+.btn {
+  padding: 9px 16px; border-radius: 8px; border: none;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-success { background: var(--success); color: white; }
+.btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--bg); }
+
+.btn-row { display: flex; gap: 8px; margin-top: 16px; }
+
+/* === Table === */
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 12px; font-size: 12px; text-transform: uppercase; color: var(--text-muted); border-bottom: 2px solid var(--border); font-weight: 600; }
+td { padding: 12px; font-size: 14px; border-bottom: 1px solid var(--border); }
+tr:hover { background: var(--bg); }
+.type-recette { color: var(--success); font-weight: 600; }
+.type-depense { color: var(--danger); font-weight: 600; }
+
+/* === Forms === */
+.form-group { margin-bottom: 16px; }
+.label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+.input, .select {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 14px; font-family: inherit; background: white;
+}
+.input:focus, .select:focus { outline: 2px solid var(--primary); outline-offset: -1px; border-color: var(--primary); }
+.input-currency { display: flex; align-items: center; gap: 8px; }
+.input-currency .input { flex: 1; }
+.input-currency .currency { color: var(--text-muted); font-weight: 600; font-size: 14px; }
+
+.radio-group { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.radio-group label {
+  flex: 1; padding: 10px; text-align: center; cursor: pointer;
+  background: white; font-size: 14px; font-weight: 500;
+}
+.radio-group input { display: none; }
+.radio-group input:checked + label { background: var(--primary); color: white; }
+.radio-group label:not(:last-child) { border-right: 1px solid var(--border); }
+
+/* === Alerts === */
+.alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; font-size: 14px; }
+.alert-warning { background: #fef3c7; color: #92400e; border-left: 4px solid var(--warning); }
+.alert-info { background: #dbeafe; color: #1e3a8a; border-left: 4px solid var(--primary); }
+.alert-success { background: #dcfce7; color: #14532d; border-left: 4px solid var(--success); }
+
+/* === Login === */
+.login-page {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--success) 100%);
+  padding: 16px;
+}
+.login-card { max-width: 420px; width: 100%; padding: 40px; }
+.login-logo { font-size: 24px; font-weight: 700; color: var(--primary); text-align: center; margin-bottom: 8px; }
+.login-logo span { color: var(--success); }
+.login-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 32px; font-size: 14px; }
+.btn-block { width: 100%; justify-content: center; padding: 12px; }
+
+/* === Loading === */
+.loader { color: var(--text-muted); text-align: center; padding: 40px; }
+
+/* === Toast === */
+.toast {
+  position: fixed; bottom: 20px; right: 20px;
+  background: var(--text); color: white;
+  padding: 12px 20px; border-radius: 8px;
+  z-index: 1000; animation: slideIn 0.3s ease;
+}
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+@keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* === Sparkline === */
+.sparkline { height: 80px; width: 100%; }
+.sparkline path { fill: rgba(37, 99, 235, 0.1); stroke: var(--primary); stroke-width: 2; }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+// ==========================================================================
+// EcoCommunauté Web — Prototype HTML
+// Branché sur les mocks REST (3000) et GraphQL (4000)
+// ==========================================================================
+const REST = 'http://localhost:3000';
+const GQL  = 'http://localhost:4000/api/graphql';
+
+const State = {
+  token: localStorage.getItem('eco_token'),
+  profil: localStorage.getItem('eco_profil') || 'COMMUNAUTAIRE',
+  user: 'marie.dupont'
+};
+
+// ---------- API helpers ----------
+async function api(path, opts = {}) {
+  const r = await fetch(REST + path, {
+    headers: { 'Content-Type': 'application/json', ...(State.token && { Authorization: 'Bearer ' + State.token }) },
+    ...opts,
+    body: opts.body && JSON.stringify(opts.body)
+  });
+  return r.json();
+}
+
+async function gql(query, variables) {
+  const r = await fetch(GQL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, variables })
+  });
+  return r.json();
+}
+
+// ---------- Utils ----------
+const fmt = n => new Intl.NumberFormat('fr-FR').format(n);
+const eur = n => new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
+const fmtDate = d => new Date(d).toLocaleDateString('fr-FR');
+
+function toast(msg, type = 'success') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ---------- Header ----------
+function header(active) {
+  return `
+    <div class="header">
+      <div class="logo">Eco<span>Communauté</span></div>
+      <nav class="nav">
+        <a href="#/dashboard" class="${active === 'dashboard' ? 'active' : ''}">Tableau de bord</a>
+        <a href="#/operations" class="${active === 'operations' ? 'active' : ''}">Opérations</a>
+        <a href="#/saisie" class="${active === 'saisie' ? 'active' : ''}">+ Saisir</a>
+        <a href="#/rapports" class="${active === 'rapports' ? 'active' : ''}">Rapports</a>
+      </nav>
+      <div class="user-info">
+        <span>${State.user} <small style="color:#94a3b8">(${State.profil})</small></span>
+        <div class="avatar">${State.user.slice(0,2).toUpperCase()}</div>
+        <a href="#/login" class="btn btn-secondary" style="padding:6px 10px;font-size:12px" onclick="State.token=null;localStorage.clear()">Déconnexion</a>
+      </div>
+    </div>
+  `;
+}
+
+// ==========================================================================
+// PAGE — Login
+// ==========================================================================
+function pageLogin() {
+  document.getElementById('app').innerHTML = `
+    <div class="login-page">
+      <div class="card login-card">
+        <div class="login-logo">Eco<span>Communauté</span></div>
+        <div class="login-subtitle">Web — Version WEBDEV 2026</div>
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="label">Identifiant</label>
+            <input class="input" type="text" id="login" value="marie.dupont" required>
+          </div>
+          <div class="form-group">
+            <label class="label">Mot de passe</label>
+            <input class="input" type="password" id="password" value="••••••••••••" required>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Se connecter</button>
+        </form>
+        <p style="text-align:center;margin-top:16px;font-size:12px;color:#94a3b8">
+          🔒 Auth via OAuth Server WEBDEV 2026 + CSP active
+        </p>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('loginForm').onsubmit = async e => {
+    e.preventDefault();
+    const res = await api('/auth/login', {
+      method: 'POST',
+      body: { login: document.getElementById('login').value, password: '***' }
+    });
+    State.token = res.access_token;
+    State.profil = res.profil;
+    localStorage.setItem('eco_token', res.access_token);
+    localStorage.setItem('eco_profil', res.profil);
+    toast('Connexion réussie');
+    location.hash = '#/dashboard';
+  };
+}
+
+// ==========================================================================
+// PAGE — Tableau de bord (consomme GraphQL)
+// ==========================================================================
+async function pageDashboard() {
+  document.getElementById('app').innerHTML = header('dashboard') + `
+    <div class="main">
+      <h1 class="page-title">Tableau de bord</h1>
+      <p class="subtitle">Communauté Saint-Pierre — Province Ouest</p>
+      <div id="content"><div class="loader">Chargement (GraphQL)…</div></div>
+    </div>
+  `;
+
+  const query = `query Dashboard($id: ID!) {
+    periodeEnCours(idCommunaute: $id) { id trimestre statut dateDebut dateFin totalRecettesFCFA totalDepensesFCFA totalRecettesEUR totalDepensesEUR nbOperations }
+    soldeQuotidien(idCommunaute: $id, joursPasses: 90) { date solde }
+    dernieresOperations(idCommunaute: $id, limite: 10) { id dateOperation libelle montantFCFA typeOperation compte { numCompte libelle } }
+    alertes(idCommunaute: $id) { niveau message lien }
+  }`;
+  const { data } = await gql(query, { id: 'comm-001' });
+
+  const p = data.periodeEnCours;
+  const ops = data.dernieresOperations;
+  const alertes = data.alertes;
+  const solde = data.soldeQuotidien;
+
+  // Sparkline SVG
+  const max = Math.max(...solde.map(s => s.solde));
+  const min = Math.min(...solde.map(s => s.solde));
+  const points = solde.map((s, i) => `${(i / (solde.length - 1)) * 100},${100 - ((s.solde - min) / (max - min)) * 90}`).join(' ');
+
+  document.getElementById('content').innerHTML = `
+    ${alertes.map(a => `<div class="alert alert-${a.niveau}">${a.message}</div>`).join('')}
+
+    <div class="grid grid-3" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">Période en cours</div>
+        <div class="card-value">${p.trimestre}</div>
+        <div class="card-sub">${fmtDate(p.dateDebut)} → ${fmtDate(p.dateFin)} <span class="badge badge-${p.statut.toLowerCase()}">${p.statut}</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Recettes</div>
+        <div class="card-value success">${fmt(p.totalRecettesFCFA)} FCFA</div>
+        <div class="card-sub">≈ ${eur(p.totalRecettesEUR)} EUR</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Dépenses</div>
+        <div class="card-value danger">${fmt(p.totalDepensesFCFA)} FCFA</div>
+        <div class="card-sub">≈ ${eur(p.totalDepensesEUR)} EUR</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <div class="card-title">Évolution du solde (90 jours)</div>
+        <svg class="sparkline" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path d="M0,100 L${points} L100,100 Z"/>
+        </svg>
+        <div class="card-sub">Min: ${fmt(min)} FCFA · Max: ${fmt(max)} FCFA</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Statistiques période</div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+          <span>Nombre d'opérations</span><strong>${p.nbOperations}</strong>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+          <span>Solde période FCFA</span><strong>${fmt(p.totalRecettesFCFA - p.totalDepensesFCFA)}</strong>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0">
+          <span>Solde période EUR</span><strong>${eur(p.totalRecettesEUR - p.totalDepensesEUR)}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3 style="font-size:16px">Dernières opérations</h3>
+        <a href="#/operations" class="btn btn-secondary">Voir toutes →</a>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Date</th><th>Compte</th><th>Libellé</th><th>Type</th><th style="text-align:right">Montant FCFA</th></tr></thead>
+          <tbody>
+            ${ops.map(o => `
+              <tr>
+                <td>${fmtDate(o.dateOperation)}</td>
+                <td>${o.compte.numCompte} — ${o.compte.libelle}</td>
+                <td>${o.libelle}</td>
+                <td><span class="type-${o.typeOperation.toLowerCase()}">${o.typeOperation}</span></td>
+                <td style="text-align:right;font-weight:600">${fmt(o.montantFCFA)}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="btn-row" style="margin-top:24px">
+      <a href="#/saisie" class="btn btn-primary">+ Saisir une opération</a>
+      ${p.statut === 'Ouvert' ? `<button class="btn btn-success" onclick="soumettre('${p.id}')">Soumettre la période</button>` : ''}
+    </div>
+  `;
+}
+
+async function soumettre(id) {
+  if (!confirm('Soumettre la période au provincial ?\nAucune modification ne sera plus possible.')) return;
+  const res = await api(`/periodes/${id}/soumettre`, { method: 'POST' });
+  toast(res.message || 'Période soumise');
+}
+
+// ==========================================================================
+// PAGE — Liste des opérations (REST)
+// ==========================================================================
+async function pageOperations() {
+  document.getElementById('app').innerHTML = header('operations') + `
+    <div class="main">
+      <h1 class="page-title">Opérations</h1>
+      <p class="subtitle">Filtrer, exporter et consulter toutes les opérations</p>
+      <div class="card" style="margin-bottom:16px;display:flex;gap:12px;align-items:end;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <label class="label">Période</label>
+          <select class="select"><option>T2 2026</option><option>T1 2026</option></select>
+        </div>
+        <div style="flex:1;min-width:200px">
+          <label class="label">Type</label>
+          <select class="select"><option>Tous</option><option>Recette</option><option>Dépense</option></select>
+        </div>
+        <div style="flex:2;min-width:240px">
+          <label class="label">Recherche sémantique 🧠</label>
+          <input class="input" type="text" placeholder="ex: carburant → trouve essence, gasoil…">
+        </div>
+        <button class="btn btn-secondary">Exporter Excel</button>
+        <a href="#/saisie" class="btn btn-primary">+ Nouvelle</a>
+      </div>
+      <div id="content"><div class="loader">Chargement (REST)…</div></div>
+    </div>
+  `;
+
+  const res = await api('/operations?periode=per-T2-2026&page=1&limit=50');
+  document.getElementById('content').innerHTML = `
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <strong>${res.total} opérations</strong>
+        <span class="badge badge-open">Page ${res.page}</span>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Date</th><th>Compte</th><th>Libellé</th><th>Type</th><th style="text-align:right">FCFA</th><th style="text-align:right">EUR</th></tr></thead>
+          <tbody>
+            ${res.items.map(o => `
+              <tr>
+                <td>${fmtDate(o.dateOperation)}</td>
+                <td>${o.numCompte}</td>
+                <td>${o.libelle}</td>
+                <td><span class="type-${o.typeOperation.toLowerCase()}">${o.typeOperation}</span></td>
+                <td style="text-align:right">${fmt(o.montantFCFA)}</td>
+                <td style="text-align:right;color:var(--text-muted)">${eur(o.montantEUR)}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+// ==========================================================================
+// PAGE — Saisie d'opération
+// ==========================================================================
+function pageSaisie() {
+  document.getElementById('app').innerHTML = header('saisie') + `
+    <div class="main">
+      <h1 class="page-title">Saisir une opération</h1>
+      <p class="subtitle">Période en cours : T2 2026 (Ouvert)</p>
+      <form class="card" id="saisieForm" style="max-width:640px">
+        <div class="form-group">
+          <label class="label">Date</label>
+          <input class="input" type="date" value="2026-05-27" required>
+        </div>
+        <div class="form-group">
+          <label class="label">Type</label>
+          <div class="radio-group">
+            <input type="radio" name="type" id="rec" value="Recette" checked>
+            <label for="rec">📥 Recette</label>
+            <input type="radio" name="type" id="dep" value="Dépense">
+            <label for="dep">📤 Dépense</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="label">Compte de trésorerie</label>
+          <select class="select" required>
+            <option value="5300">5300 — Trésorerie principale</option>
+            <option value="5301">5301 — Caisse</option>
+            <option value="6100">6100 — Charges locatives</option>
+            <option value="7000">7000 — Dons</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Libellé</label>
+          <input class="input" type="text" placeholder="Ex: Achat carburant véhicule" required>
+        </div>
+        <div class="form-group">
+          <label class="label">Montant FCFA</label>
+          <div class="input-currency">
+            <input class="input" type="number" min="0" id="montant" placeholder="0">
+            <span class="currency">FCFA</span>
+          </div>
+          <div class="card-sub" id="eurDisplay">≈ 0,00 EUR (taux du jour : 655,957)</div>
+        </div>
+        <div class="form-group">
+          <label class="label">Pièce justificative (optionnel)</label>
+          <input class="input" type="file" accept=".pdf,.jpg,.png">
+        </div>
+        <div class="btn-row">
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" onclick="location.hash='#/operations'">Annuler</button>
+        </div>
+      </form>
+    </div>
+  `;
+
+  document.getElementById('montant').oninput = e => {
+    const fcfa = parseFloat(e.target.value) || 0;
+    document.getElementById('eurDisplay').textContent = `≈ ${eur(fcfa / 655.957)} EUR (taux du jour : 655,957)`;
+  };
+
+  document.getElementById('saisieForm').onsubmit = async e => {
+    e.preventDefault();
+    const res = await api('/operations', { method: 'POST', body: { libelle: 'Test prototype', montantFCFA: 50000, typeOperation: 'Recette' } });
+    toast('Opération enregistrée (id: ' + res.id + ')');
+    setTimeout(() => location.hash = '#/operations', 800);
+  };
+}
+
+// ==========================================================================
+// PAGE — Rapports
+// ==========================================================================
+function pageRapports() {
+  document.getElementById('app').innerHTML = header('rapports') + `
+    <div class="main">
+      <h1 class="page-title">Génération de rapports</h1>
+      <p class="subtitle">Rapport trimestriel ou annuel · PDF signé carte à puce 🔐 · Streaming pour gros volumes</p>
+      <div class="card" style="max-width:640px">
+        <div class="form-group">
+          <label class="label">Type de rapport</label>
+          <select class="select">
+            <option>Rapport trimestriel communautaire</option>
+            <option>Rapport annuel communautaire</option>
+            <option>Rapport annuel provincial (PROVINCIAL)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Période</label>
+          <select class="select"><option>T2 2026</option><option>T1 2026</option></select>
+        </div>
+        <div class="form-group">
+          <label class="label">Format</label>
+          <div class="radio-group">
+            <input type="radio" name="format" id="pdf" checked><label for="pdf">📄 PDF</label>
+            <input type="radio" name="format" id="xlsx"><label for="xlsx">📊 Excel</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="label">Devise</label>
+          <div class="radio-group">
+            <input type="radio" name="dev" id="fcfa" checked><label for="fcfa">FCFA</label>
+            <input type="radio" name="dev" id="euro"><label for="euro">EUR</label>
+            <input type="radio" name="dev" id="both"><label for="both">Les deux</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="label">Signature numérique (nouveauté WEBDEV 2026)</label>
+          <select class="select">
+            <option>— Aucune —</option>
+            <option>Certificat carte à puce eIDAS</option>
+          </select>
+        </div>
+        <div class="alert alert-info">ℹ️ La signature carte à puce conserve la clé privée dans la carte (jamais exposée).</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="toast('Génération PDF lancée (mock)','success')">Générer</button>
+          <button class="btn btn-secondary">Aperçu</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ==========================================================================
+// Router
+// ==========================================================================
+const routes = {
+  '#/login': pageLogin,
+  '#/dashboard': pageDashboard,
+  '#/operations': pageOperations,
+  '#/saisie': pageSaisie,
+  '#/rapports': pageRapports
+};
+
+function route() {
+  if (!State.token) { location.hash = '#/login'; return pageLogin(); }
+  const fn = routes[location.hash] || pageDashboard;
+  fn();
+}
+
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
