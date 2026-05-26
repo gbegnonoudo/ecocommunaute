@@ -93,8 +93,27 @@ EcoCommunaute/
 
 | Document | Description |
 |---|---|
-| [`docs/architecture.md`](docs/architecture.md) | Diagramme d'architecture de l'application |
+| [`docs/architecture.md`](docs/architecture.md) | Diagramme d'architecture de l'application desktop |
 | [`docs/bonnes_pratiques_windev.md`](docs/bonnes_pratiques_windev.md) | Guide des bonnes pratiques WinDev 2025 |
+
+### Version web (WEBDEV 2026)
+
+Une **version web** de l'application est spécifiée dans [`webapp/`](webapp/). Elle :
+- Réutilise la même base HFSQL et la même couche métier WLangage
+- Suit les bonnes pratiques **WEBDEV 2026** (CSP, OAuth Server, GraphQL, Cluster, Recherche sémantique, RAD MVP, OpenStreetMap, signature carte à puce…)
+- Permet une **migration progressive** depuis le desktop, module par module
+- Coexiste avec l'app desktop sur la même base HFSQL
+
+| Document webapp | Description |
+|---|---|
+| [`webapp/README.md`](webapp/README.md) | Vue d'ensemble de la webapp |
+| [`webapp/docs/architecture.md`](webapp/docs/architecture.md) | Architecture 3-tier + diagrammes Mermaid |
+| [`webapp/docs/migration_windev_vers_webdev.md`](webapp/docs/migration_windev_vers_webdev.md) | Guide de migration desktop → web |
+| [`webapp/docs/bonnes_pratiques_webdev_2026.md`](webapp/docs/bonnes_pratiques_webdev_2026.md) | Best practices WEBDEV 2026 + checklist |
+| [`webapp/pages/`](webapp/pages/) | Spécifications des pages WEBDEV |
+| [`webapp/procedures/`](webapp/procedures/) | Code WLangage serveur (.wls) |
+| [`webapp/webservices/`](webapp/webservices/) | REST OpenAPI 3.x + GraphQL |
+| [`webapp/securite/`](webapp/securite/) | Configuration CSP + OAuth Server |
 
 ---
 
