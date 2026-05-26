@@ -1,0 +1,21 @@
+;PCSoft - Hyper File V7.00 - REP V7.00
+;Do not edit. Please use specific tools.
+ANALYSISGUID=C	;Analysis GUID
+LOCALIZATION_CS_UTF8=EBD18A6C993A4114B890AD607209822C	communaute	.\communaute.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=26DF7E33B56D413F86A1B1E82726F3D4	utilisateur	.\utilisateur.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=BD2C4578A9574FDABAF773DDD4DD5884	exercice	.\exercice.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=BB6AF8B682D2454F97ACF1076D7AEE30	periode_comptable	.\periode_comptable.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=C251EF48890948F9B134ECC587836849	taux_change_communaute	.\taux_change_communaute.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=759FAB5A125C44E7A0CA4D5BB30B7808	plan_compte	.\plan_compte.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=A884DD8043E8400986998FDB8FE8F84E	note	.\note.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=895D62A1E7604227AEDF858EFA0C546B	compte_tresorerie	.\compte_tresorerie.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=C4EE90D5257F4E05B2FDC4A883EDB37C	operation	.\operation.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=83FC3B92A0A64F53AD0E35571938FA1C	ligne_operation	.\ligne_operation.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=296A1BF675A146FCA5AFEC74C68E36E2	ressource	.\ressource.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=AC65A171ECBE46A8B42A928CE3A939C7	ressource_fonciere	.\ressource_fonciere.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=F6DCFDD8E3FC4539A0766AD050C152EA	document	.\document.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=1E890745276541FEBE95F992E0646C47	solde_periode_tresorerie	.\solde_periode_tresorerie.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=677DC47030DC4D10ADDC1F6E15329270	model_rapport	.\model_rapport.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=96E60D4ED369471692816952530943A3	mapping_rapport_excel	.\mapping_rapport_excel.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=CC5EA559DD3E477DBB5E3C1AE2D26CD0	rapport	.\rapport.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute
+LOCALIZATION_CS_UTF8=3732981546714EDBAA3E0917CDBA0633	ligne_rapport	.\ligne_rapport.fic	localhost:4900	127.0.0.1:4900	EcoCommunaute

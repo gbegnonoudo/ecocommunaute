@@ -1,0 +1,27 @@
+# WinDev - Fichiers générés et temporaires
+*.waudit
+*.cpl
+*.ctx
+*.emf
+*.eu.emf
+*.sty
+HstDuree.log
+desktop.ini
+
+# Dossiers générés WinDev
+Exe/
+Historique/
+Sauvegarde/
+Themes/
+cache.gestion de sources/
+
+# Fichiers RAD (générés automatiquement)
+RADFic.*
+RADRub.*
+RADProp.*
+
+# Fichiers de requête compilés
+*.WDR
+
+# Cache WinDev
+*.wdp
